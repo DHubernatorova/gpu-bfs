@@ -1,0 +1,14 @@
+************** graph **************
+there are 65536 nodes in the graph.
+the source node is 0.
+there are 393216 edges in the graph.
+8
+48
+298
+1824
+9770
+31757
+20959
+865
+6
+The num of levels is 9

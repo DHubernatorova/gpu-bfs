@@ -4,3 +4,7 @@
 *.ptx
 *.cubin
 *.fatbin
+Bfs/Bfs/Debug/
+Bfs/BfsCPU/Debug/
+Bfs/Bfs.VC.db
+Bfs/Bfs.VC.VC.opendb
