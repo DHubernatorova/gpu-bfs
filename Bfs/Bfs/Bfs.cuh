@@ -4,9 +4,9 @@
 #define WHITE	0				/* not visited */
 #define GREY	1				/* visiting */
 #define BLACK	2				/* visited */
-#define INF		2147483647		/* inifinity is  2^31 - 1  */
+#define INF		2147483647		/* infinity distance */
 #define MAX_LEVEL		20000	
-#define THREAD_PER_BLOCK 512
+#define THREAD_PER_BLOCK 512    /* can depend on number of nodes*/
 #define BLOCK_NUM 256
 
 typedef struct node_t

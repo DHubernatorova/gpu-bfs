@@ -1,14 +1,16 @@
 ************** graph **************
-there are 65536 nodes in the graph.
-the source node is 0.
-there are 393216 edges in the graph.
-8
-48
-298
-1824
-9770
-31757
-20959
-865
-6
-The num of levels is 9
+there are 1000000 nodes in the graph.
+the source node is 983412.
+there are 5999970 edges in the graph.
+5
+21
+136
+766
+4332
+24365
+126632
+442529
+381648
+19522
+43
+The num of levels is 11

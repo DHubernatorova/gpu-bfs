@@ -13,7 +13,6 @@ void printLevels(int* counter, int num_of_nodes, unsigned int source_node_no,
 		return;
 	}
 
-	fprintf(fp, "************** graph **************\n");
 	fprintf(fp, "there are %d nodes in the graph.\n", num_of_nodes);
 	fprintf(fp, "the source node is %u.\n", source_node_no);
 	fprintf(fp, "there are %u edges in the graph.\n", num_of_edges);
@@ -95,8 +94,6 @@ int main(int argc, char** argv)
 		visited[i] = false;
 		mask[i] = false;
 		updating_mask[i] = false;
-
-
 	}
 
 	fscanf(fp, "%u", &source_node_no);
@@ -159,7 +156,7 @@ int main(int argc, char** argv)
 	current_set[0] = source_node_no;
 	cost[source_node_no] = 0;
 
-	// synchronize to GPU mem
+	// synchronize to GPU memory
 	cudaMemcpy(d_color, color, sizeof(int) * num_of_nodes, cudaMemcpyHostToDevice);
 	cudaMemcpy(d_current_set_a, current_set, sizeof(unsigned int) * num_of_nodes, cudaMemcpyHostToDevice);
 	cudaMemcpy(d_cost, cost, sizeof(int) * num_of_nodes, cudaMemcpyHostToDevice);
@@ -169,7 +166,7 @@ int main(int argc, char** argv)
 	int thread_num = THREAD_PER_BLOCK;
 
 	int level = 0;                     // used to control the current_set_a/b to visit
-	while (current_set_size != 0) {
+	while (current_set_size != 0) {	// similar to queue in CPU implementation
 		if (level % 2 == 0) {
 			cudaMemset(d_current_set_size_new, 0, sizeof(int));
 			callBFSKernel(block_num, thread_num, d_current_set_a, d_current_set_b, current_set_size, d_current_set_size_new,
@@ -180,22 +177,22 @@ int main(int argc, char** argv)
 
 		}
 		else {
-
 			cudaMemset(d_current_set_size_new, 0, sizeof(int));
 			callBFSKernel(block_num, thread_num, d_current_set_b, d_current_set_a, current_set_size, d_current_set_size_new,
 				d_node_list, d_edge_list, d_color, d_cost, level);
 			cudaThreadSynchronize();
 			cudaMemcpy(current_set_size_new, d_current_set_size_new, sizeof(int), cudaMemcpyDeviceToHost);
 			current_set_size = *current_set_size_new;
-
 		}
 		level++;
 	}
 
-	// copy the result from GPU to CPU mem
+	// copy the result from GPU to CPU memory
 	cudaMemcpy(cost, d_cost, sizeof(unsigned int)*num_of_nodes, cudaMemcpyDeviceToHost);
+	// the cost of getting to particular node
 
 	// calculate counter
+	// the same cost means on the same level
 	for (int i = 0; i<num_of_nodes; i++) {
 		counter[cost[i]] ++;
 	}

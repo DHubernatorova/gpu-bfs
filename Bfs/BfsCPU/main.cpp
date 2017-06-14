@@ -65,7 +65,7 @@ void Graph::BFS(int s)
 
 int main()
 {
-	FILE* fp = fopen("./graph.txt", "r");
+	FILE* fp = fopen("./com-youtube.ungraph.txt", "r");
 	if (!fp) {
 		printf("file cannot be opened.\n");
 		return -1;
